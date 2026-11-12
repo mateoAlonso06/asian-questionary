@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1b2a4a">
+  <title>Desafío Dos Orillas</title>
+  <meta name="description" content="Trivia interactiva: un recorrido histórico entre Japón y Corea.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Noto+Sans:wght@400;600;700&family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader__emblem" aria-hidden="true">
+      <span class="loader__sun"></span>
+      <span class="loader__ship">⛴</span>
+    </div>
+    <p class="loader__text"><span lang="ja">読み込み中</span> · <span lang="ko">로딩 중</span></p>
+    <div class="loader__bar" aria-hidden="true"><span></span></div>
+    <span class="visually-hidden">Cargando…</span>
+  </div>
+
+  <div class="petals" aria-hidden="true"></div>
+
+  <main class="app">
+    <!-- Start screen -->
+    <section class="screen screen--start is-active" id="screen-start" aria-labelledby="title">
+      <div class="emblem" aria-hidden="true">
+        <span class="emblem__sun"></span>
+        <span class="emblem__taeguk"></span>
+      </div>
+      <p class="kicker"><span lang="ja">両岸</span> · <span lang="ko">양안</span></p>
+      <h1 class="title" id="title">Desafío<br>Dos Orillas</h1>
+      <p class="subtitle">De Fukuoka a Busan: poné a prueba lo que sabés sobre el recorrido <em>“Imjin desde adentro”</em>.</p>
+
+      <ul class="rules" aria-label="Reglas del juego">
+        <li><span class="rules__icon" aria-hidden="true">問</span><span><strong>12</strong> preguntas</span></li>
+        <li><span class="rules__icon" aria-hidden="true">命</span><span>Hasta <strong>3</strong> errores</span></li>
+        <li><span class="rules__icon" aria-hidden="true">勝</span><span><strong>8</strong> aciertos para ganar</span></li>
+        <li><span class="rules__icon" aria-hidden="true">賞</span><span>Premio: <strong>sticker exclusivo</strong></span></li>
+      </ul>
+
+      <button class="btn btn--primary btn--lg" id="btn-play" type="button">Jugar</button>
+      <p class="hint">Al 4.º error el juego termina.</p>
+    </section>
+
+    <!-- Game screen -->
+    <section class="screen screen--game" id="screen-game" aria-label="Juego">
+      <header class="hud">
+        <div class="hud__row">
+          <button class="btn-exit" id="btn-exit" type="button" aria-label="Cancelar partida y volver al menú">✕ Salir</button>
+          <span class="hud__count" id="hud-count">Pregunta 1 / 12</span>
+          <span class="hud__score" id="hud-score" aria-label="Aciertos">✓ 0</span>
+        </div>
+        <div class="route" aria-hidden="true">
+          <span class="route__port route__port--jp">福岡</span>
+          <div class="route__sea">
+            <div class="route__wake" id="route-wake"></div>
+            <span class="route__ship" id="route-ship">⛴</span>
+          </div>
+          <span class="route__port route__port--kr">부산</span>
+        </div>
+        <div class="lives" id="lives" aria-label="Errores disponibles: 3"></div>
+      </header>
+
+      <article class="card" id="card">
+        <p class="card__num" id="q-num" aria-hidden="true">一</p>
+        <h2 class="card__question" id="q-text"></h2>
+        <div class="options" id="options" role="group" aria-labelledby="q-text"></div>
+        <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        <button class="btn btn--primary btn--next" id="btn-next" type="button" hidden>Siguiente</button>
+      </article>
+    </section>
+
+    <!-- Result screen -->
+    <section class="screen screen--result" id="screen-result" aria-labelledby="result-title">
+      <div class="result__visual" id="result-visual"></div>
+      <h2 class="title title--sm" id="result-title"></h2>
+      <p class="result__score" id="result-score"></p>
+      <p class="subtitle" id="result-text"></p>
+      <div class="result__actions">
+        <button class="btn btn--primary btn--lg" id="btn-retry" type="button">Jugar de nuevo</button>
+        <button class="btn btn--ghost" id="btn-menu" type="button">Volver al menú</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="exit-dialog" aria-labelledby="exit-title">
+    <p class="modal__mark" aria-hidden="true">止</p>
+    <h2 class="modal__title" id="exit-title">¿Cancelar la partida?</h2>
+    <p class="modal__text">Vas a volver al menú y se perderá tu progreso.</p>
+    <div class="modal__actions">
+      <button class="btn btn--ghost" id="btn-exit-cancel" type="button">Seguir jugando</button>
+      <button class="btn btn--primary" id="btn-exit-confirm" type="button">Salir</button>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
